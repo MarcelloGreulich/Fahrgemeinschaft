@@ -1,5 +1,5 @@
-# Fahrgemeinschafts Anwendung
-## Was kann die Fahrgemeinschafts Anwendung?
+# 🚌 Fahrgemeinschafts Anwendung
+## ❓ Was kann die Fahrgemeinschafts Anwendung?
 - Registrierung
 - Anmeldung
 - ccount Löschen
@@ -11,28 +11,28 @@
 - Abmelden
 - Auswahlmenü
 
-## Anmeldebildschirm
+## 🚀 Anmeldebildschirm
 
 ![image](https://user-images.githubusercontent.com/113528160/195780215-aa454338-16f7-4e4b-88a3-f67633573519.png)
 
 Die Auswahl der Optionen findet per Konsoleneingabe statt.
 
-### 1. Registrierung
+### 🚀 1. Registrierung
 ![image](https://user-images.githubusercontent.com/113528160/195780499-8777f072-8ccd-44cf-ae98-43ba110111f9.png)
 
 Alle Angaben finden per Konsoleneingabe statt. Der Benutzer wird im Anschluss direkt in eine User liste hinzugefügt und kann sich nun Anmelden. Nach einer Erfolgreichen Registrierung erscheint eine Nachricht dass diese Erfolgreich war und man sie werden in das Hauptauswahlmenü weitergeleited.
 
-### 2. Anmeldung
+### 🚀 2. Anmeldung
 ![image](https://user-images.githubusercontent.com/113528160/195780574-b0485219-c7bf-4fc8-a781-8363e1cecefd.png)
 
 Bei der Anmeldung wird der Benutzer aufgefordert seinen Anmeldenamen und Paswort anzugeben. Alle Angeaben finden durch die Konsoleneingabe statt. ach einer Erfolgreichen Anmeldung werden siein das Hauptauswahlmenü weitergeleited.
 
-### 3. Account Löschen
+### ❌ 3. Account Löschen
 ![image](https://user-images.githubusercontent.com/113528160/195780303-5dc7be5f-da58-4263-a87f-5f5c058f9aa9.png)
 
 Zum Löschen aufgefordert seinen Anmeldenamen und Paswort anzugeben. Alle Angeaben finden durch die Konsoleneingabe statt.
 
-## Auswahlmeü/Hauptmenü
+## 📇 Auswahlmeü/Hauptmenü
 ![image](https://user-images.githubusercontent.com/113528160/195781363-d5c9a5b2-fd9e-4547-8668-e87e3efc6f76.png)
 
 Die Auswahl der Optionen findet per Konsoleneingabe statt.
