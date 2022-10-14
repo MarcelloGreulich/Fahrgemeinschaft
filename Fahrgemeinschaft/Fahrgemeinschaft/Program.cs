@@ -104,7 +104,7 @@ ________________________________________________________________________________
 
             string passwort = user.CheckLoginInput("Bitte wählen sie ein Passwort");
 
-            int i = user.CheckIntInput("Welches Geschlecht haben sie\n(1) Männlich\n(2) Weiblich\n");
+            int i = user.CheckIntInput("Welches Geschlecht haben sie\n(1) Männlich\n(2) Weiblich\n(3) Diverse");
             string gender = " ";
             switch (i)
             {
