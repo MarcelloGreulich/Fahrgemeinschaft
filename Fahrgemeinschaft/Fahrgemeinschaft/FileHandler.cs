@@ -7,7 +7,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading;
 
-namespace Fahrgemeinschaft
+namespace Tecalliance.Carpool.Models
 {
     internal class FileHandler
     {
@@ -80,21 +80,6 @@ namespace Fahrgemeinschaft
                 Anmeldung();
             }
             Console.Clear();
-        }
-        //add user to UserList.csv
-        public void AddName()
-        {
-            List<User> users = Users;
-            FileStream fs = new FileStream("C:\\010 Projects\\020 Fahrgemeinschaft\\UserList.csv", FileMode.Append);
-            string user = users.Last().Name + ";" + users.Last().Nachname + ";" + users.Last().Anmeldename + ";" + users.Last().Passwort + ";" + users.Last().Gender + ";" + users.Last().Alter.ToString() + ";" + "\n";
-            byte[] buffer = Encoding.Default.GetBytes(user);
-            fs.Write(buffer, 0, buffer.Length);
-            Console.Clear();
-            Console.WriteLine("Registrierung Erfolgreich!");
-            Thread.Sleep(1500);
-            Console.Clear();
-            fs.Close();
-            fs.Dispose();
         }
         //Delete user from Userlist.csv and Carpool
         public void DeleteName()

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Fahrgemeinschaft
+namespace Tecalliance.Carpool.Models
 {
     public class User
     {

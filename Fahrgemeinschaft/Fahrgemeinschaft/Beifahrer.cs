@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Fahrgemeinschaft
+namespace Tecalliance.Carpool.Models
 {
     internal class Beifahrer
     {
@@ -15,7 +11,7 @@ namespace Fahrgemeinschaft
         public DateTime Abfahrtzeit { get; set; }
 
         //Construktor for creating passenger
-        public Beifahrer(DateTime abfahrtzeit,bool fahrers, string wohnOrt, string zielOrt)
+        public Beifahrer(DateTime abfahrtzeit, bool fahrers, string wohnOrt, string zielOrt)
         {
             Abfahrtzeit = abfahrtzeit;
             Fahrers = fahrers;

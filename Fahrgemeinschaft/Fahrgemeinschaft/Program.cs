@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using static System.Net.WebRequestMethods;
 
-namespace Fahrgemeinschaft
+namespace Tecalliance.Carpool.Models
 {
     internal class Program
     {

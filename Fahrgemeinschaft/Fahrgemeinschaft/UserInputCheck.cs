@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Fahrgemeinschaft
+namespace Tecalliance.Carpool.Models
 {
     public class UserInputCheck
     {
@@ -28,7 +28,7 @@ namespace Fahrgemeinschaft
             {
                 Console.WriteLine(frage);
                 input =Console.ReadLine();
-            } while (input.Any(c => !char.IsNumber(c)) || input == "");
+            } while (input.Any(c => !char.IsNumber(c)) || input != " " || input=="");
             return Convert.ToInt32(input);
         }
         //Get user input and Checks if its only String and int for Login

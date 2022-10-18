@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fahrgemeinschaft
+namespace Tecalliance.Carpool.Models
 {
     public class Carpool
     {
