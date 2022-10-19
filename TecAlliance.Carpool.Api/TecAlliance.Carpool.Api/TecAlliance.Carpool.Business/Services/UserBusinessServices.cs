@@ -15,15 +15,13 @@ namespace TecAlliance.Carpool.Business.Services
         {
             dataServices = new UserDataServices();
         }
-        //
+        //Adds user to UserList.csv
         public void AddUser(UserDto user)
         {
             //Add converted user to DataServices
             user.Id = GetId();
             dataServices.AddUser(ConvertIntoUser(user));
         }
-
-
         //Converts UserDto to User Model from DataServices
         public User ConvertIntoUser(UserDto user)
         {
@@ -41,7 +39,7 @@ namespace TecAlliance.Carpool.Business.Services
         }
         //Converts User to UserDto Model from DataServices
         public UserDto ConvertIntoUserDto(User user)
-        { 
+        {
             UserDto newUser = new UserDto();
             newUser.Id = user.Id;
             newUser.Name = user.Name;
@@ -53,48 +51,36 @@ namespace TecAlliance.Carpool.Business.Services
 
             return newUser;
         }
-
-
-        //Get last user id of UserList.csv
+        //Get free user id of UserList.csv
         private int GetId()
         {
             int id = 0;
             List<User> users = dataServices.SaveUser();
 
-            foreach (var line in users)
+            foreach (var user in users)
             {
-                if (line.Id == 0)
-                {
-                    id = 1;
-                    return id;
-                }
-                else
-                {
-                    id = line.Id + 1;
-                    return id;
-                }
+                id = user.Id + 1;
             }
-            throw new Exception("User Id invalid");
+
+            return id;
         }
 
         //returns User with right id
         public UserDto GetUserdtoById(int inputId)
         {
-            bool idTrue = FindUserDtoId(inputId);
             List<User> users = dataServices.SaveUser();
-            if (idTrue) { 
-                foreach (var user in users)
+
+            foreach (var user in users)
+            {
+                if (user.Id == inputId)
                 {
-                    if (user.Id == inputId)
-                    {
-                        //Converting user in UsterDto
-                        return ConvertIntoUserDto(user);
-                    }
+                    //Converting user in UsterDto
+                    return ConvertIntoUserDto(user);
                 }
             }
-            throw new Exception("User Id invalid");
+            return null;
         }
-        //Get all users
+        //Get all users from UserList.csv
         public List<UserDto> GetAllUsers()
         {
             List<User> users = dataServices.SaveUser();
@@ -109,10 +95,10 @@ namespace TecAlliance.Carpool.Business.Services
         }
 
         //Checks if Input Id is in Userlist
-        private bool FindUserDtoId(int inputId)
+        public bool FindUserDtoId(int inputId)
         {
             List<User> users = dataServices.SaveUser();
-            bool idTrue= false;
+            bool idTrue = false;
             foreach (var line in users)
             {
                 if (inputId == line.Id)
@@ -121,7 +107,38 @@ namespace TecAlliance.Carpool.Business.Services
                     return idTrue;
                 }
             }
-            throw new Exception("User Id invalid");
+            return false;
+        }
+        //Remove User By id
+        public UserDto RemoveUserById(int id)
+        {
+            List<User> list = dataServices.SaveUser();
+            var userItem = GetUserdtoById(id);
+            var userConvert = dataServices.RemoveUserById(ConvertIntoUser(userItem), list);
+            return ConvertIntoUserDto(userConvert);
+        }
+        //Remove all User
+        public void RemoveAllUser()
+        {
+            dataServices.RemoveAllUser();
+        }
+        //Replace User by Id
+        public UserDto ReplaceUserById(int id, UserDto userDto)
+        {
+            //set userDto Id from 0 to id
+            userDto.Id = id;
+            //Get user from given id
+            bool UserDtoId = FindUserDtoId(id);
+            //Get List of current users
+            List<User> list = dataServices.SaveUser();
+            User user = new User();
+            //Test if user exist
+            if (UserDtoId)
+            {
+                //Converts userdto to user model and gives List to ReplaceUserById from dataService
+                user = dataServices.ReplaceUserById(id, ConvertIntoUser(userDto), list);
+            }
+            return ConvertIntoUserDto(user);
         }
 
     }
