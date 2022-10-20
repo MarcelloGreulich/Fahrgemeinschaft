@@ -8,11 +8,11 @@ namespace TecAlliance.Carpool.Business.Models
 {
     public class CarpoolDto
     {
-        public string? AutoBezeichnung { get; set; }
+        public int CarpoolId { get; set; }
+        public string? CarDesignation { get; set; }
         public int FreeSeat { get; set; }
-        public bool Fahrers { get; set; }
-        public string? WohnOrt { get; set; }
-        public string? ZielOrt { get; set; }
-        public DateTime Abfahrtzeit { get; set; }
+        public string? StartPoint { get; set; }
+        public string? EndPoint { get; set; }
+        public DateTime DepartureTime { get; set; }
     }
 }

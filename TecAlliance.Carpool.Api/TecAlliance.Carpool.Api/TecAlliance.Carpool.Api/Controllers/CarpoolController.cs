@@ -20,11 +20,11 @@ namespace TecAlliance.Carpool.Api.Controllers
             carpoolBusinessServices = new CarpoolBusinessServices();
         }
         //POST: api/Carpool/Id
-        [HttpPost("{id}")]
-        public ActionResult<CarpoolDto> PostCarpool(int id, CarpoolDto carpool)
+        [HttpPost("{userid}")]
+        public ActionResult<CarpoolDto> PostCarpool(int userid, bool isDriver, CarpoolDto carpool)
         {
-            carpoolBusinessServices.PostCarpool(id, carpool);
-            return Created($"api/Carpool/{carpool.WohnOrt}", carpool); ;
+            carpoolBusinessServices.PostCarpool(userid, carpool, isDriver);
+            return Created($"api/Carpool/{carpool.CarpoolId}", carpool); ;
         }
         //GET: api/Carpool
         [HttpGet]

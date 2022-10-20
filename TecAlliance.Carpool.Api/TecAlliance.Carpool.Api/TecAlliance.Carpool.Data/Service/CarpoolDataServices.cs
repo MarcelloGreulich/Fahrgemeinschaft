@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Text;
 using TecAlliance.Carpool.Data.Model;
+using TecAlliance.Carpool.Data.Models;
 
 namespace TecAlliance.Carpool.Data.Services
 {
@@ -7,63 +8,74 @@ namespace TecAlliance.Carpool.Data.Services
     {
         public List<CarpoolModel> SaveCarpools()
         {
-            DirectoryInfo di = new DirectoryInfo("C:\\010 Projects\\020 Fahrgemeinschaft\\Carpools");
-            int count = 0;
-            if (di.GetFiles().Length == 0)
-            {
-                throw new Exception("Directory Is empty");
-            }
-            else
-            {
-                List<CarpoolModel> list = new List<CarpoolModel>();
-                for (int i = 0; i < di.GetFiles().Length; i++)
-                {
-                    string[] lines = File.ReadAllLines($"C:\\010 Projects\\020 Fahrgemeinschaft\\Carpools\\Carpools{count}.csv");
-                    foreach (string line in lines)
-                    {
-                        CarpoolModel carpool = new CarpoolModel();
-                        if (line == string.Empty)
-                        {
-                            return null;
-                        }
-                        else
-                        {
-                            string[] box = line.Split(';');
+            List<CarpoolModel> list = new List<CarpoolModel>();
 
-                            carpool.UserId = Convert.ToInt32(box[0]);
-                            carpool.Name = box[1];
-                            carpool.Nachname = box[2];
-                            carpool.Anmeldename = box[3];
-                            carpool.Gender = box[4];
-                            carpool.Alter = Convert.ToInt32(box[5]);
-                            carpool.AutoBezeichnung = box[6];
-                            carpool.FreeSeat = Convert.ToInt32(box[7]);
-                            carpool.Fahrers = Convert.ToBoolean(box[8]);
-                            carpool.WohnOrt = box[9];
-                            carpool.ZielOrt = box[10];
-                            carpool.Abfahrtzeit = Convert.ToDateTime(box[11]);
-                            list.Add(carpool);     
-                        }
-                    }
-                    count++;
+            string[] lines = File.ReadAllLines("C:\\010 Projects\\020 Fahrgemeinschaft\\Carpools\\Carpools.csv");
+            foreach (string line in lines)
+            {
+                CarpoolModel carpool = new CarpoolModel();
+                if (line == string.Empty)
+                {
+                    return null;
                 }
-                return list;
+                else
+                {
+                    UserInfo driver = new UserInfo();
+                    UserInfo passangerid = new UserInfo();
+                    string[] box = line.Split(';');
+                    carpool.CarpoolId = Convert.ToInt32(box[0]);
+                    carpool.CarDesignation = box[1];
+                    carpool.FreeSeat = Convert.ToInt32(box[2]);
+                    carpool.StartPoint = box[3];
+                    carpool.EndPoint = box[4];
+                    carpool.DepartureTime = Convert.ToDateTime(box[5]);
+                    driver.Id = Convert.ToInt32(box[6]);
+                    driver.Name = "";
+                    driver.IsDriver = true;
+                    carpool.Drivers = driver;
+                    List<UserInfo> pasgList = new List<UserInfo>();
+                    for (int i = 7; i < box.Length-1; i++)
+                    {
+                        passangerid.Id = Convert.ToInt32(box[i]);
+                        passangerid.Name = "";
+                        passangerid.IsDriver = false;
+                        pasgList.Add(passangerid);
+                    }
+                    carpool.Passengers = pasgList;
+
+                }
+                list.Add(carpool);
             }
-            return null;
+
+            return list;
         }
 
-        public void PostCarpool(CarpoolModel carpool)
+        public void PostCarpool(List<CarpoolModel> carpoolList)
         {
-            DirectoryInfo di = new DirectoryInfo("C:\\010 Projects\\020 Fahrgemeinschaft\\Carpools");
-            int count = 0;
-            for (int i = 0; i < di.GetFiles().Length; i++)
+            //Create File Stream
+            FileStream fs = new FileStream("C:\\010 Projects\\020 Fahrgemeinschaft\\Carpools\\Carpools.csv", FileMode.Create);
+            foreach (var carpool in carpoolList)
             {
-                count++;
+                //Convert user to string 
+                List<string> str = new List<string>();
+                string userString = $"{carpool.CarpoolId};{carpool.CarDesignation};{carpool.FreeSeat};{carpool.StartPoint};{carpool.EndPoint};{carpool.DepartureTime};{carpool.Drivers.Id};";
+                //Prepare user string for writing
+                byte[] buffer = Encoding.Default.GetBytes(userString);
+                //Write user in UserList.csv
+                fs.Write(buffer, 0, buffer.Length);
+                if (carpool.Passengers != null)
+                {
+                    foreach (var item in carpool.Passengers)
+                    {
+                        userString = $"{item.Id};";
+                        buffer = Encoding.Default.GetBytes(userString);
+                        fs.Write(buffer, 0, buffer.Length);
+                    }
+                    buffer = Encoding.Default.GetBytes("\n");
+                    fs.Write(buffer);
+                }
             }
-            string str = $"{carpool.UserId};{carpool.Name};{carpool.Nachname};{carpool.Anmeldename};{carpool.Gender};{carpool.Alter};{carpool.AutoBezeichnung};{carpool.FreeSeat};{carpool.Fahrers};{carpool.WohnOrt};{carpool.ZielOrt};{carpool.Abfahrtzeit}";
-            TextWriter fs = new StreamWriter($"C:\\010 Projects\\020 Fahrgemeinschaft\\Carpools\\Carpools{count}.csv");
-            char[] c = str.ToCharArray();
-            fs.WriteLine(c);
+            //close and dispose File stream
             fs.Close();
             fs.Dispose();
         }
