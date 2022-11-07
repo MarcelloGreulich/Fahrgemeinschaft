@@ -2,7 +2,7 @@
 ## Was kann die Fahrgemeinschafts Anwendung?
 - Registrierung
 - Anmeldung
-- ccount Löschen
+- Account Löschen
 - Fahrerregistrierung
 - Beifahrerregistrierung
 - Userinformation Anmeldung
